@@ -11,7 +11,7 @@ export class Parser {
   constructor(tokens: Token[]) {
     this.peekableToken = new Peekable(tokens);
   }
-  parse(): JsonValue {
+  parse(): JsonValue { // https://www.rfc-editor.org/rfc/rfc7159#section-2
     const peek = this.peekableToken.peek();
     switch (peek?.type) {
       case "null":
@@ -29,7 +29,7 @@ export class Parser {
     }
     throw new Error("Unexpected token");
   }
-  parseArray(): JsonArray {
+  parseArray(): JsonArray { // https://www.rfc-editor.org/rfc/rfc7159#section-5
     const result: JsonArray = [];
     this.peekableToken.next(); // skip opening bracket
     if (this.peekableToken.peek()?.type === "right-bracket") return result;
@@ -42,7 +42,7 @@ export class Parser {
       throw new Error("Unexpected token");
     }
   }
-  parseObject(): JsonObject {
+  parseObject(): JsonObject { // https://www.rfc-editor.org/rfc/rfc7159#section-4
     const result: JsonObject = Object.create(null);
     this.peekableToken.next(); // skip opening brace
     if (this.peekableToken.peek()?.type === "right-brace") return result;

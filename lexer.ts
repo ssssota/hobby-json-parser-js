@@ -95,7 +95,7 @@ export class Lexer implements Iterator<Token, undefined> {
     }
     throw new Error("Unexpected error");
   }
-  private stringToken(): Token.String {
+  private stringToken(): Token.String { // https://www.rfc-editor.org/rfc/rfc7159#section-7
     let value = "";
     let next = this.peekable.next(); // ignore first double quote
     while (!(next = this.peekable.next()).done) {
@@ -180,7 +180,7 @@ export class Lexer implements Iterator<Token, undefined> {
     "8",
     "9",
   ];
-  private numberToken(): Token.Number {
+  private numberToken(): Token.Number { // https://www.rfc-editor.org/rfc/rfc7159#section-6
     // minus
     const minus = this.peekable.peek() === "-";
     if (minus) this.peekable.next();
